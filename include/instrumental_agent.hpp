@@ -67,7 +67,7 @@ namespace Instrumental {
         /**
          * Sets an absolute gauge data point
          */
-        InstrumentalStatus guage_absolute(const char* metric, double value, time_t time = time_now());
+        InstrumentalStatus absolute(const char* metric, double value, time_t time = time_now());
     public:
         /**
          * returns the time for "now"

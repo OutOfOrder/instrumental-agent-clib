@@ -44,8 +44,13 @@ namespace Instrumental {
         return agent_add_data_point(_agent, INSTRUMENTAL_GAUGE, metric, value, time, count);
     }
 
-    inline InstrumentalStatus Agent::guage_absolute(const char* metric, double value, time_t time)
+    inline InstrumentalStatus Agent::absolute(const char* metric, double value, time_t time)
     {
         return agent_add_data_point(_agent, INSTRUMENTAL_GAUGE_ABSOLUTE, metric, value, time, 1);
+    }
+
+    inline time_t Agent::time_now()
+    {
+        return time(NULL);
     }
 }

@@ -1,6 +1,7 @@
 #include "instrumental_agent.hpp"
 
 #include <iostream>
+#include <string>
 
 using std::cout;
 using std::cerr;
@@ -17,5 +18,29 @@ int main(int argc, char* argv[])
             << "\tvalue\tis the floating point value to record" << endl;
     }
 
+    InstrumentalStatus status;
+    Instrumental::Agent agent(argv[1]);
+
+    status = agent.connect();
+    if (status != INSTRUMENTAL_OK) {
+        cerr << "Could not connect to collector: " <<  status << endl;
+        return 1;
+    }
+
+    std::string type = argv[2];
+    const char* metric = argv[3];
+    const char* value_string = argv[4];
+    float value = atof(value_string);
+
+    if (type == "inc" || type == "increment") {
+        agent.increment(metric, value);
+    } else if (type == "gauge") {
+        agent.gauge(metric, value);
+    } else if (type == "gauge_absolute" || type == "abs" || type == "absolute") {
+        agent.absolute(metric, value);
+    } else {
+        cerr << "Unknown type: " << type << endl;
+        return 1;
+    }
     return 0;
 }

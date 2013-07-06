@@ -18,6 +18,7 @@ source_group("Interface" FILES ${PUBLIC_HEADERS})
 SET(LIB_SOURCE
     src/agent.h
     src/agent.c
+    src/agent_curl.c
 )
 source_group("Library" FILES ${LIB_SOURCE})
 
@@ -26,7 +27,10 @@ ADD_LIBRARY(InstrumentalAgent
     ${LIB_HEADERS}
     ${LIB_SOURCE}
 )
-
+SET_TARGET_PROPERTIES(InstrumentalAgent
+    PROPERTIES
+        COMPILE_DEFINITIONS_DEBUG "DEBUG"
+)
 TARGET_LINK_LIBRARIES(InstrumentalAgent
     ${CURL_LIBRARY}
 )

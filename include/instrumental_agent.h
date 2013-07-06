@@ -7,6 +7,8 @@
  * Public C API for the Instrumental Agent
  */
 
+#define INSTRUMENTAL_AGENT_VERSION "1.0.0"
+
 /* needed for cross platform time_t definition */
 #include "time.h"
 
@@ -22,9 +24,13 @@ extern "C" {
     /** Status enums */
     typedef enum {
         INSTRUMENTAL_OK,                /**< The function completed successfully */
-        INSTRUMENTAL_QUEUE_FULL,
-        INSTRUMENTAL_NOT_CONNECTED,
-        INSTRUMENTAL_FAILED
+        INSTRUMENTAL_NOT_CONNECTED,     /**< The agent is not connected */
+        INSTRUMENTAL_CONNECT_ERROR,     /**< A connection error occured */
+        INSTRUMENTAL_MEMORY_ERROR,      /**< The agent couldn't allocate a memory buffer */
+        INSTRUMENTAL_SOCKET_ERROR,      /**< A network socket error occured */
+        INSTRUMENTAL_SOCKET_NOT_READY,  /**< The network socket isn't ready */
+        INSTRUMENTAL_TIMEOUT,           /**< There was a timeout sending/receiving from the network */
+        INSTRUMENTAL_UNKNOWN,           /**< An unknown error occured */
     } InstrumentalStatus;
 
     /** Metric types */
@@ -61,6 +67,11 @@ extern "C" {
      * \return  Returns 1 if connected 0 otherwise
      */
     int agent_is_connected(InstrumentalAgent *);
+
+    /**
+     * Disconnects the agent
+     */
+    InstrumentalStatus agent_disconnect(InstrumentalAgent *);
 
     /**
      * Enable/Disable an agent
