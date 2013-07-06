@@ -48,11 +48,18 @@ namespace Instrumental {
          */
         bool isConnected();
         /**
-         * \connect the agent
+         * Connect the agent
          *
          * \return an ::InstrumentalStatus value.
          */
         InstrumentalStatus connect();
+
+        /**
+         * Disconnect the agent
+         *
+         * \return an ::InstrumentalStatus value.
+         */
+        InstrumentalStatus disconnect();
 
         /**
          * Increments a data point

@@ -33,6 +33,10 @@ namespace Instrumental {
     {
         return agent_connect(_agent);
     }
+    inline InstrumentalStatus Agent::disconnect()
+    {
+        return agent_disconnect(_agent);
+    }
 
     inline InstrumentalStatus Agent::increment(const char* metric, double value, time_t time, int count)
     {
